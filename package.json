@@ -1,0 +1,23 @@
+{
+    "name": "BaconBot",
+    "version": "1.0.0",
+    "description": "A random bot for Discord using discord.js",
+    "main": "bot.js",
+    "repository": "https://www.github.com/Rayzr522/BaconBot",
+    "author": "Rayzr",
+    "license": "None",
+    "dependencies": {
+        "del": "^2.2.2",
+        "discord.js": "^10.0.1"
+    },
+    "scripts": {
+        "start": "gulp"
+    },
+    "devDependencies": {
+        "babel": "^6.5.2",
+        "eslint": "^3.11.1",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^6.1.2",
+        "gulp-eslint": "^3.0.1"
+    }
+}
