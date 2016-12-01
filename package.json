@@ -5,13 +5,13 @@
     "main": "bot.js",
     "repository": "https://www.github.com/Rayzr522/BaconBot",
     "author": "Rayzr",
-    "license": "None",
     "dependencies": {
         "del": "^2.2.2",
         "discord.js": "^10.0.1"
     },
     "scripts": {
-        "start": "gulp"
+        "start": "gulp",
+        "background": "screen -dmS baconBot gulp"
     },
     "devDependencies": {
         "babel": "^6.5.2",

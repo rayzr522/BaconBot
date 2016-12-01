@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const CommandHandler = require('./commandHandler.js');
+const CommandHandler = require('./commandHandler');
 
 const client = new Discord.Client();
 
@@ -7,7 +7,7 @@ class AdventureBot {
     constructor(client) {
 
         this.client = client;
-        this.config = require('../config.js');
+        this.config = require('./config');
         this.commands = new CommandHandler();
 
         client.on('message', message => {
@@ -18,22 +18,21 @@ class AdventureBot {
         });
 
         client.on('ready', () => {
-            reload();
+            this.reload();
+            this.commands.loadCommands();
             console.log('Client loaded as', client.user.username);
         });
 
     }
 
     reload() {
-        this.commands.loadCommands();
-        config = require('../config.js');
+        this.config = require('./config.js');
     }
 };
 
+const bot = new AdventureBot(client);
+
 exports.botClass = AdventureBot;
+exports.bot = bot;
 
-const bot = exports.bot = new AdventureBot(client);
-
-if (!module.parent) {
-    client.login(bot.config.token);
-}
+client.login(bot.config.token);
