@@ -6,8 +6,11 @@ class CommandPong extends Command {
     }
 
     execute(context, args) {
-        // console.log(context);
-        context.say(`${context.author.username}, ya flippin skr00b, why would you try this?`);
+        if (context.author.username === 'ipodtouch0218') {
+            context.say(`ipod, this isn't a command. stappit.`);
+        } else {
+            context.say(`${context.author.username}, this command does not exist. Stop trying to use it.`);
+        }
     }
 }
 

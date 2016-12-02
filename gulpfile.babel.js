@@ -27,26 +27,22 @@ gulp.task('lint', () =>
         .pipe(eslint.failAfterError())
 );
 
-gulp.task('bot', ['build'], (callback) => {
-    const builtFile = `${paths.libDir}/${paths.entryPoint}`;
-    console.log(`Running node at ${builtFile}`);
-
-    if (node) { node.kill(); console.log('Killed server.') }
-    node = spawn('node', [builtFile], { stdio: 'inherit' });
-    node.on('close', function(code) {
+gulp.task('main', ['build'], () => {
+    if (node) { node.kill(); console.log('Restarting bot...') }
+    node = spawn('node', [`${paths.libDir}/${paths.entryPoint}`], { stdio: 'inherit' });
+    node.on('close', function (code) {
         if (code === 8) {
             console.log('Error detected, waiting for changes...');
         }
     });
-    console.log('Ran bot.');
 });
 
 gulp.task('watch', () => {
-    gulp.watch(paths.srcFiles, ['bot'], () => console.log('Files were changed!'));
+    gulp.watch(paths.srcFiles, ['main']);
 });
 
-gulp.task('default', ['bot', 'watch']);
+gulp.task('default', ['main', 'watch']);
 
-process.on('exit', function() {
+process.on('exit', function () {
     if (node) node.kill()
 });
