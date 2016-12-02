@@ -1,4 +1,5 @@
-const Command = require('../command.js');
+const Command = require('../command');
+const utils = require('../utils');
 
 class CommandReload extends Command {
     constructor() {
@@ -6,10 +7,13 @@ class CommandReload extends Command {
     }
 
     execute(context, args) {
-        context.delete();
+        if (utils.isIpod(context.author)) {
+            context.say('no broadcasts 4 u ;3');
+            return;
+        }
         var joined = args.join(' ');
         var lines = joined.split(/\|\|/);
-        context.say(`@everyone\n\`\`\`diff\n!============ IMPORTANT ============!\n${lines.join('\n')}\n\`\`\``);
+        context.say(`\`\`\`diff\n!============ IMPORTANT ============!\n${lines.join('\n')}\n\`\`\``);
     }
 }
 

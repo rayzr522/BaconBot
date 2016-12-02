@@ -9,6 +9,10 @@ class CommandHandler {
         return this.commands[id];
     }
 
+    getCommands() {
+        return new Object(this.commands);
+    }
+
     loadCommands() {
         this.commands = {};
         for (var i in this.commands) {
@@ -45,10 +49,10 @@ class CommandHandler {
     }
 
     _extendContext(context) {
-        context.say = function(msg) {
+        context.say = function (msg) {
             return this.client.rest.methods.sendMessage(this.channel, msg);
         };
-        context.sayPair = function(key, value) {
+        context.sayPair = function (key, value) {
             return this.say(`\`\`\`yaml\n${key}: ${value}\n\`\`\``);
         }
         return context;
