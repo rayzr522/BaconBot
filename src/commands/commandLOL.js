@@ -8,6 +8,7 @@ class CommandLOL extends Command {
 
     execute(context, args) {
         const str = utils.isIpod(context.author) ? 'el' : 'ol';
+        context.delete();
         context.say(`l${str.repeat(utils.randRange(3, 100))} ${args.join(' ')}`);
     }
 }

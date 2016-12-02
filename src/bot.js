@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const CommandHandler = require('./commandHandler');
+const utils = require('./utils');
 
 const client = new Discord.Client();
 
@@ -20,6 +21,12 @@ class AdventureBot {
         client.on('ready', () => {
             this.reload();
             this.commands.loadCommands();
+
+            utils.editRole(client, 'bacon-bot', role => console.log(role));
+            // console.log(role);
+
+            // if (role) role.setColor('E65A4B');
+
             console.log('Client loaded as', client.user.username);
         });
 
@@ -34,5 +41,6 @@ const bot = new AdventureBot(client);
 
 exports.botClass = AdventureBot;
 exports.bot = bot;
+exports.icon = bot.config.icon;
 
 client.login(bot.config.token);

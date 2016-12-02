@@ -1,7 +1,7 @@
 const Command = require('../command.js');
 const bot = require('../bot.js').bot;
 
-const link = 'https://discordapp.com/api/oauth2/authorize?client_id=253941817614139393&scope=bot&permissions=0';
+const link = 'https://discordapp.com/oauth2/authorize?client_id=253941817614139393&scope=bot&permissions=268443648';
 
 class CommandInvite extends Command {
     constructor() {

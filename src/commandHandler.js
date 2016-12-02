@@ -1,4 +1,5 @@
 const fs = require('fs');
+const utils = require('./utils');
 
 class CommandHandler {
     constructor() {
@@ -54,6 +55,9 @@ class CommandHandler {
         };
         context.sayPair = function (key, value) {
             return this.say(`\`\`\`yaml\n${key}: ${value}\n\`\`\``);
+        };
+        context.embed = function (embed) {
+            return this.channel.sendMessage('', { embed });
         }
         return context;
     }

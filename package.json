@@ -7,7 +7,7 @@
     "author": "Rayzr",
     "dependencies": {
         "del": "^2.2.2",
-        "discord.js": "^10.0.1"
+        "discord.js": "github:hydrabolt/discord.js#indev"
     },
     "scripts": {
         "start": "gulp",
