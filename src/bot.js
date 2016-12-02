@@ -22,7 +22,11 @@ class AdventureBot {
             this.reload();
             this.commands.loadCommands();
 
-            utils.editRole(client, 'bacon-bot', role => console.log(role));
+            utils.editRole(client, 'bacon-bot', role => {
+                console.log('Setting role color...');
+                role.setColor('#D84733')
+                    .catch(() => { })
+            });
             // console.log(role);
 
             // if (role) role.setColor('E65A4B');
@@ -42,5 +46,9 @@ const bot = new AdventureBot(client);
 exports.botClass = AdventureBot;
 exports.bot = bot;
 exports.icon = bot.config.icon;
+
+process.on("unhandledRejection", err => {
+    console.error("Uncaught Promise Error: \n" + err.stack);
+});
 
 client.login(bot.config.token);

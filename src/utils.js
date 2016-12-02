@@ -16,15 +16,16 @@ exports.isUser = function (user, userString) {
     return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
 }
 
-exports.embed = (title, description = '\u200b', url = '') => {
+exports.embed = (title, description = '\u200b', url = '', timestamp = false, color = null) => {
     if (url !== '') description += '\n';
     return {
         title,
         description: `${description}\n\u200b`,
         url,
-        timestamp: new Date(),
+        timestamp: timestamp ? new Date() : null,
         video: { url },
         image: { url },
+        color: this.hexToDec(color == null ? '#EB3C25' : color),
         footer: {
             text: 'Powered by Bacon',
             icon_url: bot.icon
@@ -40,4 +41,10 @@ exports.editRole = function (client, roleName, callback) {
             }
         }
     }
+}
+
+exports.hexToDec = function (hexInput) {
+    if (typeof hexInput !== 'string') return 0;
+    if (hexInput.startsWith('#')) hexInput = hexInput.substr(1);
+    return parseInt(hexInput, 16);
 }

@@ -11,10 +11,12 @@ class CommandReload extends Command {
             context.say('no broadcasts 4 u ;3');
             return;
         }
-        var joined = args.join(' ');
-        var lines = joined.split(/\|\|/);
+
         context.delete();
-        context.say(`\`\`\`diff\n!============ IMPORTANT ============!\n${lines.join('\n')}\n\`\`\``);
+        context.embed(utils.embed(
+            `Announcement by ${context.author.username}`,
+            args.join(' ')
+        ));
     }
 }
 
