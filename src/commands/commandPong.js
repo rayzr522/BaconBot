@@ -7,7 +7,7 @@ class CommandPong extends Command {
 
     execute(context, args) {
         // console.log(context);
-        context.say(`${context.author.username}, ya fricken skr00b, why would you try this?`);
+        context.say(`${context.author.username}, ya flippin skr00b, why would you try this?`);
     }
 }
 

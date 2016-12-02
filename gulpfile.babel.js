@@ -2,48 +2,51 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const del = require('del');
-const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
 
-var lastProcess;
+var node;
 
 const paths = {
-    srcFiles: 'src/**/*.js',
-    libDir: 'lib',
+    srcFiles: './src/**/*.js',
+    libDir: './lib',
     entryPoint: 'bot.js'
 }
 
 gulp.task('build', ['clean', 'lint'], () =>
     gulp.src(paths.srcFiles)
-    .pipe(babel())
-    .pipe(gulp.dest(paths.libDir))
+        .pipe(babel())
+        .pipe(gulp.dest(paths.libDir))
 );
 
 gulp.task('clean', () => del(paths.libDir));
 
 gulp.task('lint', () =>
     gulp.src(paths.srcFiles)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError())
 );
 
-gulp.task('main', ['build'], (callback) => {
+gulp.task('bot', ['build'], (callback) => {
     const builtFile = `${paths.libDir}/${paths.entryPoint}`;
     console.log(`Running node at ${builtFile}`);
-    console.log(typeof lastProcess);
-    if (lastProcess && typeof lastProcess.kill === 'function') {
-        lastProcess.kill();
-    }
-    console.log(typeof lastProcess);
-    lastProcess = exec(`node ${builtFile}`, {}, function(error, stdout) {
-        return callback(error);
+
+    if (node) { node.kill(); console.log('Killed server.') }
+    node = spawn('node', [builtFile], { stdio: 'inherit' });
+    node.on('close', function(code) {
+        if (code === 8) {
+            console.log('Error detected, waiting for changes...');
+        }
     });
-    lastProcess.stdout.on('data', function(data) {
-        console.log(`[Node] ${data.substr(0, data.lastIndexOf('\n'))}`);
-    });
-    console.log(typeof lastProcess);
+    console.log('Ran bot.');
 });
 
-gulp.task('watch', () => gulp.watch(paths.srcFiles, ['main']));
+gulp.task('watch', () => {
+    gulp.watch(paths.srcFiles, ['bot'], () => console.log('Files were changed!'));
+});
 
-gulp.task('default', ['watch', 'main']);
+gulp.task('default', ['bot', 'watch']);
+
+process.on('exit', function() {
+    if (node) node.kill()
+});
