@@ -23,7 +23,6 @@ class AdventureBot {
             this.commands.loadCommands();
 
             utils.editRole(client, 'bacon-bot', role => {
-                console.log('Setting role color...');
                 role.setColor('#D84733')
                     .catch(() => { })
             });

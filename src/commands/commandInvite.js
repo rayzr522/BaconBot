@@ -8,7 +8,7 @@ class CommandInvite extends Command {
         super('invite', `Gives you an invite link for ${bot.config.name}`);
     }
 
-    execute(context, args) {
+    execute(context) {
         context.say(`**Invite ${bot.config.name} to your server:**\n${link}`);
     }
 }

@@ -1,4 +1,14 @@
 const bot = require('./bot');
+const simpleColors = {
+    'white': '#FFFFFF',
+    'black': '#000000',
+    'red': '#FF0000',
+    'green': '#00FF00',
+    'blue': '#0000FF',
+    'yellow': '#FFFF00',
+    'pink': '#FF00FF',
+    'cyan': '#00FFFF'
+}
 
 exports.blankLine = function () {
     return '```\n ```\n';
@@ -15,6 +25,8 @@ exports.isIpod = function (author) {
 exports.isUser = function (user, userString) {
     return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
 }
+
+exports.prefix = () => bot.bot.config.prefix;
 
 exports.embed = (title, description = '\u200b', url = '', timestamp = false, color = null) => {
     if (url !== '') description += '\n';
@@ -44,7 +56,15 @@ exports.editRole = function (client, roleName, callback) {
 }
 
 exports.hexToDec = function (hexInput) {
+    if (typeof hexInput === 'number') return hexInput;
     if (typeof hexInput !== 'string') return 0;
     if (hexInput.startsWith('#')) hexInput = hexInput.substr(1);
     return parseInt(hexInput, 16);
+}
+
+exports.getColor = function (input) {
+    if (typeof input !== 'string') return 0;
+    if (input.startsWith('#')) return this.hexToDec(input);
+    if (typeof simpleColors[input.toLowerCase()] === 'string') return this.hexToDec(simpleColors[input.toLowerCase()]);
+    return 0;
 }

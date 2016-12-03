@@ -6,7 +6,7 @@ class CommandReload extends Command {
         super('reload', 'Reloads the config file');
     }
 
-    execute(context, args) {
+    execute(context) {
         const start = process.hrtime();
         bot.reload();
         context.say('Config reloaded!').then(msg => {

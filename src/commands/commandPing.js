@@ -5,7 +5,7 @@ class CommandPing extends Command {
         super('ping', 'Pings the bot');
     }
 
-    execute(context, args) {
+    execute(context) {
         const start = process.hrtime();
         context.say(`Pong!`).then(msg => {
             const diff = process.hrtime(start);

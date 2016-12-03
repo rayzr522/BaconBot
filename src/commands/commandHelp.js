@@ -7,7 +7,7 @@ class CommandHelp extends Command {
         super('help', `Lists all the available commands for ${bot.config.name}`);
     }
 
-    execute(context, args) {
+    execute(context) {
         if (utils.isUser(context.author, 'bwfcwalshy#1284')) {
             context.say('Pfff, why would you need to use my crappy javascript bot? #JDA4LIFE!!!');
             return;

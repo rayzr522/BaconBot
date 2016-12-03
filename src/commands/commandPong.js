@@ -6,7 +6,7 @@ class CommandPong extends Command {
         super('pong', 'Why would you even do this?');
     }
 
-    execute(context, args) {
+    execute(context) {
         if (utils.isIpod(context.author)) {
             context.say(`ipod, this isn't a command. stappit.`);
         } else {

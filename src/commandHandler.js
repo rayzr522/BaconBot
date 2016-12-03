@@ -1,5 +1,4 @@
 const fs = require('fs');
-const utils = require('./utils');
 
 class CommandHandler {
     constructor() {
