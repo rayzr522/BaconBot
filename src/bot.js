@@ -45,12 +45,11 @@ class AdventureBot {
 
 const bot = new AdventureBot(client);
 
-exports.botClass = AdventureBot;
 exports.bot = bot;
-exports.icon = bot.config.icon;
+exports.client = client;
 
 process.on("unhandledRejection", err => {
-    console.error("Uncaught Promise Error: \n" + err.stack);
+    console.error("Uncaught Promise Error: \n" + JSON.stringify(err));
 });
 
 client.login(bot.config.token);

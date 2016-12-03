@@ -1,5 +1,5 @@
 // Reference to the bot (you need to call bot.bot to get the actual bot though)
-const bot = require('./bot');
+const AdventureBot = require('./bot');
 
 // Color-related constants
 const rgbToHex = /rgb\((\s*\d{1,3}(\s*,\s*\d{1,3}){2}\s*)\)/;
@@ -30,21 +30,33 @@ exports.isUser = function (user, userString) {
     return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
 }
 
-exports.prefix = () => bot.bot.config.prefix;
+exports.prefix = () => AdventureBot.bot.config.prefix;
 
-exports.embed = (title, description = '\u200b', url = '', timestamp = false, color = null) => {
+exports.embed = (title, description = '', fields = [], options = {}) => {
+    let url = options.url || '';
+    let timestamp = options.timestamp || false;
+    let color = this.getColor(options.color || '#EB3C25');
+
+    // if (fields.length > 0) description += '\n' + fields.map(obj => `\n**${obj.name}**\n${obj.value}`).join('\n');
+    if (options.inline) fields = fields.map(obj => { obj.inline = true; return obj; });
+    if (fields.length > 0) fields.push({ name: '\u200b', value: '\u200b' });
     if (url !== '') description += '\n';
     return {
+        author: {
+            name: AdventureBot.client.user.username,
+            icon_url: AdventureBot.client.user.avatarURL
+        },
+        color,
         title,
-        description: `${description}\n\u200b`,
+        fields,
+        description: (description === '' ? null : `${description}\n\u200b`),
         url,
-        timestamp: timestamp ? new Date() : null,
         video: { url },
         image: { url },
-        color: this.hexToDec(color == null ? '#EB3C25' : color),
+        timestamp: timestamp ? new Date() : null,
         footer: {
             text: 'Powered by Bacon',
-            icon_url: bot.icon
+            icon_url: AdventureBot.client.user.avatarURL
         }
     }
 }
