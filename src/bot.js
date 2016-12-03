@@ -19,20 +19,23 @@ class AdventureBot {
         });
 
         client.on('ready', () => {
-            this.reload();
-            this.commands.loadCommands();
-
-            utils.editRole(client, 'bacon-bot', role => {
-                role.setColor('#D84733')
-                    .catch(() => { })
-            });
-            // console.log(role);
-
-            // if (role) role.setColor('E65A4B');
-
+            this._load();
             console.log('Client loaded as', client.user.username);
         });
 
+    }
+
+    _load() {
+        this.reload();
+        this.commands.loadCommands();
+
+        utils.editRole(client, 'bacon-bot', role => {
+            role.setColor('#D84733')
+                .catch(() => { })
+        });
+
+        this.client.user.setAvatar('./avatar.png');
+        this.client.user.setGame(`${this.config.prefix}help | Running on ${client.guilds.size} servers`)
     }
 
     reload() {
