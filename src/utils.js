@@ -1,4 +1,8 @@
+// Reference to the bot (you need to call bot.bot to get the actual bot though)
 const bot = require('./bot');
+
+// Color-related constants
+const rgbToHex = /rgb\((\s*\d{1,3}(\s*,\s*\d{1,3}){2}\s*)\)/;
 const simpleColors = {
     'white': '#FFFFFF',
     'black': '#000000',
@@ -62,9 +66,21 @@ exports.hexToDec = function (hexInput) {
     return parseInt(hexInput, 16);
 }
 
+exports.rgbToHex = function (rgb) {
+    if (typeof rgb !== 'string') return '#000000';
+    if (!rgbToHex.test(rgb)) return '#000000';
+    return '#' + rgb.replace(rgbToHex, '$1').split(',')
+        .map(num => parseInt(num.trim()).toString(16))
+        .map(num => num.length < 2 ? '0'.repeat(2 - num.length) + num : num)
+        .map(num => num.length > 2 ? 'FF' : num)
+        .join('').toUpperCase();
+}
+
 exports.getColor = function (input) {
     if (typeof input !== 'string') return 0;
+    if (rgbToHex.test(input)) input = this.rgbToHex(input); // This falls into the next if
     if (input.startsWith('#')) return this.hexToDec(input);
-    if (typeof simpleColors[input.toLowerCase()] === 'string') return this.hexToDec(simpleColors[input.toLowerCase()]);
+    if (typeof simpleColors[input.toLowerCase()] === 'string')
+        return this.getColor(simpleColors[input.toLowerCase()]);
     return 0;
 }
