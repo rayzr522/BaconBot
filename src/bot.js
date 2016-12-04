@@ -48,8 +48,8 @@ const bot = new AdventureBot(client);
 exports.bot = bot;
 exports.client = client;
 
-process.on("unhandledRejection", err => {
-    console.error("Uncaught Promise Error: \n" + JSON.stringify(err));
+process.on('unhandledRejection', err => {
+    console.error(`Uncaught error (${err.status}): ${JSON.parse(err.response.text).message}`);
 });
 
 client.login(bot.config.token);
