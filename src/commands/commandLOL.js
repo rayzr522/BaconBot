@@ -1,16 +1,13 @@
-const Command = require('../command.js');
-const utils = require('../utils.js');
+const utils = require('../utils');
 
-class CommandLOL extends Command {
-    constructor() {
-        super('lol', 'LOOOOLLLL');
-    }
-
-    execute(context, args) {
-        const str = utils.isIpod(context.author) ? 'el' : 'ol';
-        context.delete();
-        context.say(`l${str.repeat(utils.randRange(3, 100))} ${args.join(' ')}`);
-    }
+exports.run = function (bot, msg, args) {
+    const str = utils.isIpod(msg.author) ? 'el' : 'ol';
+    msg.delete();
+    msg.say(`l${str.repeat(utils.randRange(3, 100))} ${args.join(' ')}`);
 }
 
-module.exports = CommandLOL;
+exports.info = {
+    name: 'lol',
+    usage: 'lol <text>',
+    description: 'LOOOOLLLL'
+};

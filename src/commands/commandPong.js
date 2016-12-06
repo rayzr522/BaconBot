@@ -1,18 +1,15 @@
-const Command = require('../command.js');
 const utils = require('../utils');
 
-class CommandPong extends Command {
-    constructor() {
-        super('pong', 'Why would you even do this?');
+exports.run = function (bot, msg) {
+    if (utils.isIpod(bot.author)) {
+        msg.channel.sendMessage(`ipod, this isn't a command. stappit.`);
+    } else {
+        msg.channel.sendMessage(`${bot.author.username}, this command does not exist. Stop trying to use it.`);
     }
+};
 
-    execute(context) {
-        if (utils.isIpod(context.author)) {
-            context.say(`ipod, this isn't a command. stappit.`);
-        } else {
-            context.say(`${context.author.username}, this command does not exist. Stop trying to use it.`);
-        }
-    }
-}
-
-module.exports = CommandPong;
+exports.info = {
+    name: 'pong',
+    usage: '.. just don\'t. please.',
+    description: 'Why would you even do this?'
+};

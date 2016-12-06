@@ -1,33 +1,37 @@
-const Command = require('../command');
-const bot = require('../bot').bot;
 const utils = require('../utils');
 
-class CommandHelp extends Command {
-    constructor() {
-        super('help', `Lists all the available commands for ${bot.config.name}`);
-    }
+exports.run = function (bot, msg, args) {
+    var commands = {};
 
-    execute(context) {
-        if (utils.isUser(context.author, 'bwfcwalshy#1284')) {
-            context.say('Pfff, why would you need to use my crappy javascript bot? #JDA4LIFE!!!');
+    if (args.length > 0) {
+        if (!bot.commands[args[0]]) {
+            msg.channel.sendMessage(`:no_entry_sign: The command '${args[0]}' doesn't exist!`);
             return;
         }
-        var commands = bot.commands.getCommands();
-        var output = `**Available Commands:**\n\`\`\``;
+        commands = bot.commands[args[0]];
+    } else {
+        commands = bot.commands;
+    }
 
-        var length = 0;
-        for (const command in commands) {
-            if (command.length > length) {
-                length = command.length;
-            }
-        }
+    let fields = [];
 
-        for (const command in commands) {
-            output += `${command}${' '.repeat(length - command.length)} | ${commands[command].description}\n`;
-        }
-        output += `\`\`\``;
-        context.say(output);
+    for (const key in commands) {
+        let command = commands[key];
+        fields.push(getField(bot, command));
+    };
+
+    msg.embed(utils.embed(bot, '', '', fields, { inline: true }));
+};
+
+function getField(bot, command) {
+    return {
+        name: command.info.name,
+        value: `**Usage:** \`${bot.config.prefix}${command.info.usage}\`\n**Description:** ${command.info.description}`
     }
 }
 
-module.exports = CommandHelp;
+exports.info = {
+    name: 'help',
+    usage: 'help [command]',
+    description: 'Shows help for all commands or an individual command'
+};

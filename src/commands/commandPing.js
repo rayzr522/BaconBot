@@ -1,17 +1,11 @@
-const Command = require('../command.js');
-
-class CommandPing extends Command {
-    constructor() {
-        super('ping', 'Pings the bot');
-    }
-
-    execute(context) {
-        const start = process.hrtime();
-        context.say(`Pong!`).then(msg => {
-            const diff = process.hrtime(start);
-            msg.edit(`Pong! \`${(diff[0] * 1000) + Math.round(diff[1] / 1000000)}ms\``);
-        });
-    }
+exports.run = function (bot, msg) {
+    msg.channel.sendMessage(`Pong!`).then(m => {
+        msg.edit(`Pong! \`${m.createdTimestamp - msg.createdTimestamp}ms\``);
+    });
 }
 
-module.exports = CommandPing;
+exports.info = {
+    name: 'ping',
+    usage: 'ping',
+    description: 'Pings the bot'
+};

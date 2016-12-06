@@ -1,6 +1,3 @@
-// Reference to the bot (you need to call bot.bot to get the actual bot though)
-const AdventureBot = require('./bot');
-
 // Color-related constants
 const rgbToHex = /rgb\((\s*\d{1,3}(\s*,\s*\d{1,3}){2}\s*)\)/;
 const simpleColors = {
@@ -30,9 +27,8 @@ exports.isUser = function (user, userString) {
     return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
 }
 
-exports.prefix = () => AdventureBot.bot.config.prefix;
+exports.embed = (bot, title, description = '', fields = [], options = {}) => {
 
-exports.embed = (title, description = '', fields = [], options = {}) => {
     let url = options.url || '';
     let timestamp = options.timestamp || false;
     let color = this.getColor(options.color || '#EB3C25');
@@ -43,8 +39,8 @@ exports.embed = (title, description = '', fields = [], options = {}) => {
     if (url !== '') description += '\n';
     return {
         author: {
-            name: AdventureBot.client.user.username,
-            icon_url: AdventureBot.client.user.avatarURL
+            name: bot.user.username,
+            icon_url: bot.user.avatarURL
         },
         color,
         title,
@@ -56,7 +52,7 @@ exports.embed = (title, description = '', fields = [], options = {}) => {
         timestamp: timestamp ? new Date() : null,
         footer: {
             text: 'Powered by Bacon',
-            icon_url: AdventureBot.client.user.avatarURL
+            icon_url: bot.user.avatarURL
         }
     }
 }
