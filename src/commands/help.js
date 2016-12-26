@@ -17,10 +17,12 @@ exports.run = function (bot, msg, args) {
 
     for (const key in commands) {
         let command = commands[key];
-        fields.push(getField(bot, command));
+        if (!command.info.hidden) {
+            fields.push(getField(bot, command));
+        }
     };
 
-    msg.embed(utils.embed(bot, '', '', fields, { inline: true }));
+    msg.embed(utils.embed('Help for BaconBot', '\n\u200b', fields, { inline: true }));
 };
 
 function getField(bot, command) {

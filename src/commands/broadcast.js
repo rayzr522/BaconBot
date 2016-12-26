@@ -2,7 +2,7 @@ const utils = require('../utils');
 
 exports.run = function (bot, msg, args) {
 
-    const color = typeof args[0] === 'string' ? args[0].startsWith('color:') ? utils.getColor(args[0].substr(6)) : null : null;
+    const color = typeof args[0] === 'string' ? args[0].startsWith('color:') ? args[0].substr(6) : null : null;
     if (color !== null) args = args.slice(1);
 
     if (args.length < 1) {
@@ -13,7 +13,7 @@ exports.run = function (bot, msg, args) {
 
     msg.delete();
     msg.embed(utils.embed(
-        `Announcement by ${utils.isIpod(msg.author) ? 'teh skr00b' : msg.author.username}`, args.join(' '), '', false, color
+        `Announcement by ${utils.isIpod(msg.author) ? 'teh skr00b' : msg.author.username}`, args.join(' '), [], { color: color }
     ));
 }
 

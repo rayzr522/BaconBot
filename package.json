@@ -7,7 +7,9 @@
     "author": "Rayzr",
     "dependencies": {
         "discord.js": "github:hydrabolt/discord.js#indev",
-        "superagent": "^3.1.0"
+        "minecraft-protocol": "^1.1.1",
+        "superagent": "^3.1.0",
+        "xkcd-imgs": "^1.0.1"
     },
     "scripts": {
         "start": "gulp",

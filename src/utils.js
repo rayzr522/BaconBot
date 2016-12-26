@@ -27,7 +27,7 @@ exports.isUser = function (user, userString) {
     return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
 }
 
-exports.embed = (bot, title, description = '', fields = [], options = {}) => {
+exports.embed = (title, description = '', fields = [], options = {}) => {
 
     let url = options.url || '';
     let timestamp = options.timestamp || false;
@@ -38,22 +38,14 @@ exports.embed = (bot, title, description = '', fields = [], options = {}) => {
     if (fields.length > 0) fields.push({ name: '\u200b', value: '\u200b' });
     if (url !== '') description += '\n';
     return {
-        author: {
-            name: bot.user.username,
-            icon_url: bot.user.avatarURL
-        },
         color,
         title,
         fields,
-        description: (description === '' ? null : `${description}\n\u200b`),
+        description: (description === '' ? null : `${description}`),
         url,
         video: { url },
         image: { url },
         timestamp: timestamp ? new Date() : null,
-        footer: {
-            text: 'Powered by Bacon',
-            icon_url: bot.user.avatarURL
-        }
     }
 }
 

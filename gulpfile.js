@@ -28,9 +28,15 @@ gulp.task('main', ['lint'], () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch(paths.srcFiles, ['main']);
+    gulp.watch([
+        paths.srcFiles,
+        paths.configs
+    ], ['main']);
 });
 
 gulp.task('default', ['main', 'watch']);
 
 process.on('exit', () => { if (bot) bot.kill(); });
+
+
+
