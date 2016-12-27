@@ -8,7 +8,7 @@ exports.run = function (bot, msg, args) {
             msg.channel.sendMessage(`:no_entry_sign: The command '${args[0]}' doesn't exist!`);
             return;
         }
-        commands = bot.commands[args[0]];
+        commands = [bot.commands[args[0]]];
     } else {
         commands = bot.commands;
     }

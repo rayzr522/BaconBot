@@ -35,7 +35,7 @@ exports.embed = (title, description = '', fields = [], options = {}) => {
 
     // if (fields.length > 0) description += '\n' + fields.map(obj => `\n**${obj.name}**\n${obj.value}`).join('\n');
     if (options.inline) fields = fields.map(obj => { obj.inline = true; return obj; });
-    if (fields.length > 0) fields.push({ name: '\u200b', value: '\u200b' });
+    // if (fields.length > 0) fields.push({ name: '\u200b', value: '\u200b' });
     if (url !== '') description += '\n';
     return {
         color,
