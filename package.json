@@ -6,8 +6,10 @@
     "repository": "https://www.github.com/Rayzr522/BaconBot",
     "author": "Rayzr",
     "dependencies": {
+        "cheerio": "^0.22.0",
         "discord.js": "github:hydrabolt/discord.js#indev",
         "minecraft-protocol": "^1.1.1",
+        "request": "^2.79.0",
         "superagent": "^3.1.0",
         "xkcd-imgs": "^1.0.1"
     },
