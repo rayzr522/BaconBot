@@ -97,7 +97,7 @@ exports.run = function (bot, msg, args) {
     }
 }
 
-function getResults(query, data, bot) {
+function getResults(query, data) {
     return data
         .map(p => {
             return {

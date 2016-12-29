@@ -1,5 +1,5 @@
 const xkcd = require('xkcd-imgs');
-const utils = require('../utils');
+const {embed} = require('../utils');
 
 exports.run = function (bot, msg) {
     msg.channel.sendMessage(':arrows_counterclockwise: Loading comic...').then(m => {
@@ -10,7 +10,7 @@ exports.run = function (bot, msg) {
                 return;
             }
             m.edit('', {
-                embed: utils.embed('', res.title, [], { url: res.url })
+                embed: embed('', res.title, [], { url: res.url })
             })
         })
     });
@@ -18,6 +18,6 @@ exports.run = function (bot, msg) {
 
 exports.info = {
     name: 'xkcd',
-    usage: 'xkcd',
+    usage: 'xkcd [feed]',
     description: 'Shows you random xkcd comics'
 }
