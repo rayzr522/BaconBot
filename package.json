@@ -8,7 +8,9 @@
     "dependencies": {
         "cheerio": "^0.22.0",
         "discord.js": "github:hydrabolt/discord.js#indev",
+        "leven": "^2.0.0",
         "minecraft-protocol": "^1.1.1",
+        "prettyjson": "^1.2.1",
         "request": "^2.79.0",
         "superagent": "^3.1.0",
         "xkcd-imgs": "^1.0.1"

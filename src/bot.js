@@ -8,7 +8,7 @@ const config = bot.config = require('./config.json');
 var commands = bot.commands = {};
 
 process.on('unhandledRejection', err => {
-    console.error(`Uncaught error (${err.status}): ${JSON.parse(err.response.text).message}`);
+    console.error(`Uncaught error (${err.status}): ${err.response ? JSON.parse(err.response.text).message : err}`);
 });
 
 bot.on('message', msg => {
