@@ -1,15 +1,15 @@
-const request = require('superagent');
+const snekfetch = require('snekfetch');
 
-exports.run = function (bot, msg) {
+exports.run = (bot, msg) => {
     msg.delete();
     msg.channel.sendMessage(':dog: Have some dog pix:');
-    request.get("http://random.dog/woof", (err, res) => {
-        msg.channel.sendMessage(`http://random.dog/${res.text}`);
+    snekfetch.get("http://random.dog/woof").then(res => {
+        msg.channel.send(`http://random.dog/${res.body}`);
     });
-}
+};
 
 exports.info = {
     name: 'dog',
     usage: 'dog',
     description: 'Shows you cute dog pictures'
-}
+};

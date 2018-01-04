@@ -1,36 +1,35 @@
 const utils = require('../utils');
 
-exports.run = function (bot, msg, args) {
-    var commands = {};
+exports.run = (bot, msg, args) => {
+    let commands;
 
     if (args.length > 0) {
-        if (!bot.commands[args[0]]) {
+        let command = bot.commands[args[0]];
+        if (!command) {
             msg.channel.sendMessage(`:no_entry_sign: The command '${args[0]}' doesn't exist!`);
             return;
         }
-        commands = [bot.commands[args[0]]];
+        commands = [command];
     } else {
-        commands = bot.commands;
+        commands = Object.values(bot.commands);
     }
 
-    let fields = [];
+    let fields = commands.filter(command => !command.info.hidden)
+        .map(command => getField(bot, command));
 
-    for (const key in commands) {
-        let command = commands[key];
-        if (!command.info.hidden) {
-            fields.push(getField(bot, command));
-        }
-    };
+    msg.channel.send(':mailbox_with_mail: Check your DMs for help!');
 
-    msg.embed(utils.embed('Help for BaconBot', '\n\u200b', fields, { inline: true }));
+    while (fields.length) {
+        msg.author.send({
+            embed: utils.embed('Help for BaconBot', '\n\u200b', fields.splice(0, 20))
+        });
+    }
 };
 
-function getField(bot, command) {
-    return {
-        name: command.info.name,
-        value: `**Usage:** \`${bot.config.prefix}${command.info.usage}\`\n**Description:** ${command.info.description}`
-    }
-}
+const getField = (bot, command) => ({
+    name: `\`${bot.config.prefix}${command.info.usage}\``,
+    value: `*${command.info.description}*`
+});
 
 exports.info = {
     name: 'help',

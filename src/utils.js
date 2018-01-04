@@ -9,26 +9,17 @@ const simpleColors = {
     'yellow': '#FFFF00',
     'pink': '#FF00FF',
     'cyan': '#00FFFF'
-}
+};
 
-exports.blankLine = function () {
-    return '```\n ```\n';
-}
+exports.blankLine = () => '```\n ```\n';
 
-exports.randRange = function (start, finish) {
+exports.randRange = (start, finish) => {
     return start + Math.round(Math.random() * (finish - start));
-}
+};
 
-exports.isIpod = function (author) {
-    return this.isUser(author, 'ipodtouch0218#0400');
-}
-
-exports.isUser = function (user, userString) {
-    return user.username === userString.split('#')[0] && user.discriminator === userString.split('#')[1];
-}
+exports.isIpod = author => author.id === '233360087979130882';
 
 exports.embed = (title, description = '', fields = [], options = {}) => {
-
     let url = options.url || '';
     let timestamp = options.timestamp || false;
     let color = this.getColor(options.color || '#EB3C25');
@@ -37,6 +28,7 @@ exports.embed = (title, description = '', fields = [], options = {}) => {
     if (options.inline) fields = fields.map(obj => { obj.inline = true; return obj; });
     // if (fields.length > 0) fields.push({ name: '\u200b', value: '\u200b' });
     if (url !== '') description += '\n';
+
     return {
         color,
         title,
@@ -46,10 +38,10 @@ exports.embed = (title, description = '', fields = [], options = {}) => {
         video: { url },
         image: { url },
         timestamp: timestamp ? new Date() : null,
-    }
-}
+    };
+};
 
-exports.editRole = function (client, roleName, callback) {
+exports.editRole = (client, roleName, callback) => {
     for (const guild of client.guilds) {
         for (const role of guild[1].roles) {
             if (role[1].name === roleName) {
@@ -57,30 +49,33 @@ exports.editRole = function (client, roleName, callback) {
             }
         }
     }
-}
+};
 
-exports.hexToDec = function (hexInput) {
+exports.hexToDec = hexInput => {
     if (typeof hexInput === 'number') return hexInput;
     if (typeof hexInput !== 'string') return 0;
     if (hexInput.startsWith('#')) hexInput = hexInput.substr(1);
-    return parseInt(hexInput, 16);
-}
 
-exports.rgbToHex = function (rgb) {
+    return parseInt(hexInput, 16);
+};
+
+exports.rgbToHex = rgb => {
     if (typeof rgb !== 'string') return '#000000';
     if (!rgbToHex.test(rgb)) return '#000000';
+
     return '#' + rgb.replace(rgbToHex, '$1').split(',')
         .map(num => parseInt(num.trim()).toString(16))
         .map(num => num.length < 2 ? '0'.repeat(2 - num.length) + num : num)
         .map(num => num.length > 2 ? 'FF' : num)
         .join('').toUpperCase();
-}
+};
 
-exports.getColor = function (input) {
+exports.getColor = input => {
     if (typeof input !== 'string') return 0;
     if (rgbToHex.test(input)) input = this.rgbToHex(input); // This falls into the next if
     if (input.startsWith('#')) return this.hexToDec(input);
     if (typeof simpleColors[input.toLowerCase()] === 'string')
         return this.getColor(simpleColors[input.toLowerCase()]);
+
     return 0;
-}
+};
