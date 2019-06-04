@@ -8,7 +8,6 @@ BaconBot is a simple bot base written in JavaScript using Discord.js. It is desi
 
 1. [`git`](https://git-scm.com/downloads)
 2. [`node`](https://nodejs.org/en/download/)
-3. [`yarn`](https://yarnpkg.com/en/docs/install)
 
 ## Installation
 
@@ -19,7 +18,7 @@ Now, in Terminal (macOS) or Git Bash (Windows) run the following commands:
 ```bash
 git clone https://github.com/Rayzr522/BaconBot.git
 cd BaconBot
-yarn install
+npm install
 ```
 
 Finally, copy the `config.json.example` file to `config.json` and fill in your bot token.
@@ -30,7 +29,7 @@ To run the bot, simply run the following in Terminal (macOS) or Git Bash (Window
 
 ```bash
 cd <path/to/BaconBot>
-yarn start
+npm start
 ```
 
 ## Join Me
