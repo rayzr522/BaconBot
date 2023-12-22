@@ -31,9 +31,3 @@ To run the bot, simply run the following in Terminal (macOS) or Git Bash (Window
 cd <path/to/BaconBot>
 npm start
 ```
-
-## Join Me
-
-Questions, comments, concerns? Just want to chat? Feel free to join my Discord server!
-
-[![Discord Badge](https://github.com/Rayzr522/ProjectResources/raw/master/RayzrDev/badge-small.png)](https://discord.io/rayzrdevofficial)
